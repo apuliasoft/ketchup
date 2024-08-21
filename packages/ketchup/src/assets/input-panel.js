@@ -234,6 +234,209 @@ const data = {
     },
 };
 
+const dataAttributeTest = {
+    columns: [
+        {
+            name: 'NAM',
+            title: 'Text Field',
+            visible: true,
+        },
+        {
+            name: 'ACP',
+            title: 'Autocomplete',
+            visible: true,
+        },
+        // { editable: false, name: 'BTN', visible: true, isEditable: false },
+        // {
+        //     name: 'GRA',
+        //     title: 'Chart',
+        //     visible: true,
+        // },
+        {
+            name: 'CHI',
+            title: 'Chip',
+            visible: true,
+        },
+        {
+            name: 'CHK',
+            title: 'Checkbox',
+            visible: true,
+        },
+        {
+            name: 'CMB',
+            title: 'Combobox',
+            visible: true,
+        },
+        {
+            name: 'CLP',
+            title: 'Color Picker',
+            visible: true,
+        },
+        {
+            name: 'CLP',
+            title: 'Color Picker',
+            visible: true,
+        },
+        {
+            name: 'DAT',
+            title: 'Date Picker',
+            visible: true,
+        },
+    ],
+    rows: [
+        {
+            cells: {
+                NAM: {
+                    value: 'Giovanni',
+                    obj: { t: '', p: '', k: '' },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'ITX',
+                    data: {
+                        helper: 'prove',
+                        readOnly: true,
+                    },
+                },
+                ACP: {
+                    value: 'Mario',
+                    obj: { t: '', p: '', k: '' },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'ACP',
+                    data: {
+                        showDropDownIcon: false,
+                        disabled: true,
+                    },
+                },
+                // BTN: {
+                //     value: 'Avanti',
+                //     obj: { t: '', p: '' },
+                //     options: [],
+                //     editable: true,
+                //     mandatory: true,
+                //     shape: 'BTN',
+                //     data: {
+                //         disabled: true,
+                //         styling: 'flat',
+                //     },
+                // },
+                // GRA: {
+                //     value: 'grafico',
+                //     obj: { t: '', p: '', k: '' },
+                //     editable: true,
+                //     mandatory: true,
+                //     shape: 'GRA',
+                //     // data: {
+                //     //     helper: 'prove',
+                //     //     readOnly: true,
+                //     // },
+                // },
+                CHI: {
+                    value: '',
+                    obj: { t: '', p: '', k: '' },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'CHI',
+                    data: {
+                        displayId: true,
+                    },
+                },
+                CHK: {
+                    value: '',
+                    obj: { t: '', p: '', k: '' },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'CHK',
+                    data: {
+                        leadingLabel: true,
+                        label: 'Value',
+                        checked: true,
+                    },
+                },
+                CMB: {
+                    value: '',
+                    obj: { t: '', p: '', k: '' },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'CMB',
+                    data: {
+                        initialValue: 'First item',
+                        showDropDownIcon: false,
+                    },
+                },
+                CLP: {
+                    value: '',
+                    obj: { t: '', p: '', k: '' },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'CLP',
+                    data: {
+                        initialValue: '#000000',
+                    },
+                },
+                DAT: {
+                    obj: { t: '', p: '', k: '' },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'DAT',
+                    data: {
+                        firstDayIndex: 4,
+                    },
+                },
+            },
+            layout: {
+                type: 'SmeupDataLayout',
+                horizontal: false,
+                sections: [
+                    {
+                        content: [
+                            {
+                                id: 'NAM',
+                            },
+                            {
+                                id: 'ACP',
+                            },
+                            // {
+                            //     id: 'BTN',
+                            // },
+                            // {
+                            //     id: 'GRA',
+                            // },
+                            {
+                                id: 'CHI',
+                            },
+                            {
+                                id: 'CHK',
+                            },
+                            {
+                                id: 'CMB',
+                            },
+                            {
+                                id: 'CLP',
+                            },
+                            {
+                                id: 'DAT',
+                            },
+                        ],
+                        sections: [],
+                        horizontal: false,
+                        gridCols: 4,
+                        gridRows: 2,
+                        gap: 2,
+                        title: 'Anagrafica',
+                    },
+                ],
+            },
+        },
+    ],
+    debugInfo: {
+        executionTime_ms: 51,
+        initialTimestamp: '2024-06-11T15:02:17.854994131Z',
+        finalTimestamp: '2024-06-11T15:02:17.906443131Z',
+        runtime: 'Java 21',
+    },
+};
+
 const data1 = {
     columns: [
         {
@@ -573,7 +776,7 @@ const data1 = {
 // };
 
 const inputPanel = document.getElementById('input-panel');
-inputPanel.data = data;
+inputPanel.data = dataAttributeTest;
 inputPanel.optionsHandler = (fun, inputValue, currentState) => {
     console.log('optionsHandler event', { fun, inputValue, currentState });
 

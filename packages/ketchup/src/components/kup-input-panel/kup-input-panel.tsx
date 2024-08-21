@@ -545,12 +545,17 @@ export class KupInputPanel {
                                         ...this.#mapData(cell, column),
                                         disabled: !cell.editable,
                                         id: column.name,
+                                        ...cell.data,
                                     },
                                     slotData: this.#slotData(cell, column),
                                     isEditable: true,
                                 }
                               : null;
-
+                          console.log(
+                              'mapped cell',
+                              column.name,
+                              mappedCell.data
+                          );
                           return { column, cell: mappedCell };
                       });
                   return [...inpuPanelCells, { cells, row }];
@@ -749,12 +754,12 @@ export class KupInputPanel {
         cell: KupInputPanelCell,
         id: string
     ) {
+        console.log('autocomplete', cell);
         const configCMandACP: GenericObject = {
             data: {
                 'kup-text-field': {
                     trailingIcon: true,
                     label: fieldLabel,
-                    icon: 'arrow_drop_down',
                 },
                 'kup-list': {
                     showIcons: true,
@@ -797,6 +802,7 @@ export class KupInputPanel {
                 this.#optionsTreeComboAdapter(rawOptions, currentValue);
         }
 
+        console.log('result', configCMandACP);
         return configCMandACP;
     }
 
