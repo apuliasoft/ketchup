@@ -336,16 +336,18 @@ export class KupInputPanel {
     }
 
     #renderButton(cell: KupDataCell, cellId: string) {
+        console.log('button cell', cellId, cell);
+        const { fun, ...props } = cell.data;
         return (
             <FButton
-                label={cell.data.label}
+                {...props}
                 icon={cell.icon}
                 id={cellId}
                 wrapperClass="form__submit"
                 onClick={() => {
-                    cell.data.fun
+                    fun
                         ? this.customButtonClickHandler({
-                              fun: cell.data.fun,
+                              fun,
                               cellId,
                               currentState: this.#reverseMapCells(),
                           })
@@ -362,6 +364,7 @@ export class KupInputPanel {
     }
 
     #renderEditor(cell: KupDataCell, cellId: string) {
+        console.log('editor cell', cellId, cell);
         const event = 'kup-editor-save';
         const handler = (e: CustomEvent<KupEditorEventPayload>) => {
             const edtCell: KupDataCell =
@@ -388,20 +391,21 @@ export class KupInputPanel {
                 {...cell.data}
                 id={cellId}
                 isReadOnly={!cell.isEditable}
-                showToolbar={true}
+                // showToolbar={true}
             ></kup-editor>
         );
     }
 
     #renderDataTable(cell: KupDataCell, cellId: string) {
+        console.log('render table', cell);
         return (
             <kup-data-table
                 id={cellId}
-                data={cell.data}
                 editableData={true}
                 showGroups={true}
                 showFilters={true}
                 showFooter={true}
+                {...cell.data}
             ></kup-data-table>
         );
     }
@@ -725,13 +729,13 @@ export class KupInputPanel {
         return {
             data: {
                 sizeX: '50px',
+                sizeY: '50px',
                 offlineMode: {
                     value: '8;4;5',
                 },
-                id: 'i1012_GREF_0',
-                cellId: 'i1012_GREF_0',
-                sizeY: '50px',
             },
+            cellId: 'i1012_GREF_0',
+            id: 'i1012_GREF_0',
         };
     }
 
@@ -920,6 +924,7 @@ export class KupInputPanel {
         id: string
     ) {
         try {
+            console.log('table rawoptions', cell);
             let data = JSON.parse(cell.value);
 
             if (!data) {
@@ -941,31 +946,38 @@ export class KupInputPanel {
             }
 
             return {
-                columns: data.columns.map((col) => ({
-                    ...col,
-                    obj: data.rows[0].cells[col.name].obj,
-                })),
-                rows: data.rows.map((row) => ({
-                    ...row,
-                    cells: Object.keys(row.cells).reduce((cell, key) => {
-                        const column = data.columns.find(
-                            (col) => col.name === key
-                        );
-                        return {
-                            ...cell,
-                            [key]: {
-                                ...row.cells[key],
-                                data: {
-                                    ...this.#mapData(row.cells[key], column),
-                                    disabled: row.cells[key].editable === false,
-                                    id: column.id,
+                data: {
+                    columns: data.columns.map((col) => ({
+                        ...col,
+                        obj: data.rows[0].cells[col.name].obj,
+                    })),
+                    rows: data.rows.map((row) => ({
+                        ...row,
+                        cells: Object.keys(row.cells).reduce((cell, key) => {
+                            const column = data.columns.find(
+                                (col) => col.name === key
+                            );
+                            return {
+                                ...cell,
+                                [key]: {
+                                    ...row.cells[key],
+                                    data: {
+                                        ...this.#mapData(
+                                            row.cells[key],
+                                            column
+                                        ),
+                                        disabled:
+                                            row.cells[key].editable === false,
+                                        id: column.id,
+                                    },
                                 },
-                            },
-                        };
-                    }, {}),
-                })),
+                            };
+                        }, {}),
+                    })),
+                },
             };
         } catch (e) {
+            console.log('error table', e);
             this.#kupManager.debug.logMessage(
                 this,
                 `Invalid value for ${id} cell. Type \`SmeupDataTable\` expected`,

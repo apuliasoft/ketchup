@@ -246,12 +246,7 @@ const dataAttributeTest = {
             title: 'Autocomplete',
             visible: true,
         },
-        // { editable: false, name: 'BTN', visible: true, isEditable: false },
-        // {
-        //     name: 'GRA',
-        //     title: 'Chart',
-        //     visible: true,
-        // },
+        { editable: false, name: 'BTN', visible: true, isEditable: false },
         {
             name: 'CHI',
             title: 'Chip',
@@ -268,6 +263,16 @@ const dataAttributeTest = {
             visible: true,
         },
         {
+            name: 'EDT',
+            title: 'Editor',
+            visible: true,
+        },
+        // {
+        //     name: 'LBL',
+        //     title: 'Label',
+        //     visible: true,
+        // },
+        {
             name: 'CLP',
             title: 'Color Picker',
             visible: true,
@@ -280,6 +285,26 @@ const dataAttributeTest = {
         {
             name: 'DAT',
             title: 'Date Picker',
+            visible: true,
+        },
+        {
+            name: 'RAD',
+            title: 'Radio',
+            visible: true,
+        },
+        {
+            name: 'SWT',
+            title: 'Switch',
+            visible: true,
+        },
+        {
+            name: 'TIM',
+            title: 'Time Picker',
+            visible: true,
+        },
+        {
+            name: 'TBL',
+            title: 'Table',
             visible: true,
         },
     ],
@@ -306,31 +331,21 @@ const dataAttributeTest = {
                     data: {
                         showDropDownIcon: false,
                         disabled: true,
+                        
                     },
                 },
-                // BTN: {
-                //     value: 'Avanti',
-                //     obj: { t: '', p: '' },
-                //     options: [],
-                //     editable: true,
-                //     mandatory: true,
-                //     shape: 'BTN',
-                //     data: {
-                //         disabled: true,
-                //         styling: 'flat',
-                //     },
-                // },
-                // GRA: {
-                //     value: 'grafico',
-                //     obj: { t: '', p: '', k: '' },
-                //     editable: true,
-                //     mandatory: true,
-                //     shape: 'GRA',
-                //     // data: {
-                //     //     helper: 'prove',
-                //     //     readOnly: true,
-                //     // },
-                // },
+                BTN: {
+                    value: 'Avanti',
+                    obj: { t: '', p: '' },
+                    options: [],
+                    editable: true,
+                    mandatory: true,
+                    shape: 'BTN',
+                    data: {
+                        disabled: false,
+                        styling: 'flat',
+                    },
+                },
                 CHI: {
                     value: '',
                     obj: { t: '', p: '', k: '' },
@@ -364,6 +379,17 @@ const dataAttributeTest = {
                         showDropDownIcon: false,
                     },
                 },
+                EDT: {
+                    value: '',
+                    obj: { t: '', p: '', k: '' },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'EDT',
+                    data: {
+                        showToolbar: true,
+                        showSaveButton: false,
+                    },
+                },
                 CLP: {
                     value: '',
                     obj: { t: '', p: '', k: '' },
@@ -383,6 +409,58 @@ const dataAttributeTest = {
                         firstDayIndex: 4,
                     },
                 },
+                RAD: {
+                    value: 'rad1',
+                    options: [
+                        {
+                            id: 'rad1',
+                            label: 'value1',
+                        },
+                        {
+                            id: 'rad2',
+                            label: 'value2',
+                        },
+                    ],
+                    obj: { t: '', p: '', k: '' },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'RAD',
+                    data: {
+                        leadingLabel: true,
+                    },
+                },
+                SWT: {
+                    value: true,
+                    obj: { t: '', p: '', k: '' },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'SWT',
+                    data: {
+                        label: 'Off/On',
+                    },
+                },
+                TIM: {
+                    value: '',
+                    obj: { t: '', p: '', k: '' },
+                    editable: true,
+                    mandatory: true,
+                    shape: 'TIM',
+                    data: {
+                        clockVariant: false,
+                        timeMinutesStep: 15,
+                    },
+                },
+                TBL: {
+                    value: JSON.stringify(datatable),
+                    shape: 'TBL',
+                    // options: datatable,
+                    editable: true,
+                    mandatory: true,
+                    data: {
+                        showDeleteButton: true,
+                        showHistoryButton: true,
+                    }
+                },
             },
             layout: {
                 type: 'SmeupDataLayout',
@@ -396,12 +474,9 @@ const dataAttributeTest = {
                             {
                                 id: 'ACP',
                             },
-                            // {
-                            //     id: 'BTN',
-                            // },
-                            // {
-                            //     id: 'GRA',
-                            // },
+                            {
+                                id: 'BTN',
+                            },
                             {
                                 id: 'CHI',
                             },
@@ -412,10 +487,28 @@ const dataAttributeTest = {
                                 id: 'CMB',
                             },
                             {
+                                id: 'EDT',
+                            },
+                            // {
+                            //     id: 'LBL',
+                            // },
+                            {
                                 id: 'CLP',
                             },
                             {
                                 id: 'DAT',
+                            },
+                            {
+                                id: 'RAD',
+                            },
+                            {
+                                id: 'SWT',
+                            },
+                            {
+                                id: 'TIM',
+                            },
+                            {
+                                id: 'TBL',
                             },
                         ],
                         sections: [],
@@ -423,7 +516,7 @@ const dataAttributeTest = {
                         gridCols: 4,
                         gridRows: 2,
                         gap: 2,
-                        title: 'Anagrafica',
+                        title: 'Test data attribute of components',
                     },
                 ],
             },
