@@ -336,7 +336,6 @@ export class KupInputPanel {
     }
 
     #renderButton(cell: KupDataCell, cellId: string) {
-        console.log('button cell', cellId, cell);
         const { fun, ...props } = cell.data;
         return (
             <FButton
@@ -364,7 +363,6 @@ export class KupInputPanel {
     }
 
     #renderEditor(cell: KupDataCell, cellId: string) {
-        console.log('editor cell', cellId, cell);
         const event = 'kup-editor-save';
         const handler = (e: CustomEvent<KupEditorEventPayload>) => {
             const edtCell: KupDataCell =
@@ -391,7 +389,7 @@ export class KupInputPanel {
                 {...cell.data}
                 id={cellId}
                 isReadOnly={!cell.isEditable}
-                // showToolbar={true}
+                showToolbar={true}
             ></kup-editor>
         );
     }
@@ -758,7 +756,6 @@ export class KupInputPanel {
         cell: KupInputPanelCell,
         id: string
     ) {
-        console.log('autocomplete', cell);
         const configCMandACP: GenericObject = {
             data: {
                 'kup-text-field': {
@@ -806,7 +803,6 @@ export class KupInputPanel {
                 this.#optionsTreeComboAdapter(rawOptions, currentValue);
         }
 
-        console.log('result', configCMandACP);
         return configCMandACP;
     }
 
@@ -924,7 +920,6 @@ export class KupInputPanel {
         id: string
     ) {
         try {
-            console.log('table rawoptions', cell);
             let data = JSON.parse(cell.value);
 
             if (!data) {
@@ -977,7 +972,6 @@ export class KupInputPanel {
                 },
             };
         } catch (e) {
-            console.log('error table', e);
             this.#kupManager.debug.logMessage(
                 this,
                 `Invalid value for ${id} cell. Type \`SmeupDataTable\` expected`,
