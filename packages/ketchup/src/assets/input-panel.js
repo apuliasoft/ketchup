@@ -1960,7 +1960,7 @@ const dataTableFiltersTest = {
 const autocompleteTest = {
     'kup-text-field': {
         trailingIcon: true,
-        label: 'Autocomplete (value)',
+        icon: 'arrow_drop_down',
     },
     'kup-list': {
         showIcons: true,
@@ -2467,8 +2467,14 @@ const dataAttributeTest = {
                     shape: 'ACP',
                     data: {
                         showDropDownIcon: false,
-                        // TODO impedire che vengano sovrascritti tutti i default innestati
-                        data: autocompleteTest,
+                        // Full data
+                        // data: autocompleteTest,
+                        // Check no override default properties
+                        data: {
+                            'kup-list': {
+                                showIcons: false,
+                            },
+                        },
                     },
                 },
                 BTN: {
@@ -2534,8 +2540,8 @@ const dataAttributeTest = {
                     mandatory: true,
                     shape: 'AML',
                     data: {
-                        showDropDownIcon: false,
-                        slotData: autocompleteTest,
+                        displayId: false,
+                        data: autocompleteTest,
                     },
                 },
                 CML: {
@@ -2544,9 +2550,9 @@ const dataAttributeTest = {
                     editable: true,
                     mandatory: true,
                     shape: 'CML',
-                    data: { 
-                        showDropDownIcon: true,
-                        slotData: comboboxTest },
+                    data: {
+                        data: comboboxTest,
+                    },
                 },
                 NMB: {
                     value: '',

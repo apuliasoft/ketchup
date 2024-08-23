@@ -395,7 +395,6 @@ export class KupInputPanel {
     }
 
     #renderDataTable(cell: KupDataCell, cellId: string) {
-        console.log('render table', cell);
         return (
             <kup-data-table
                 id={cellId}
@@ -541,23 +540,25 @@ export class KupInputPanel {
                       .map((column) => {
                           const cell = structuredClone(row.cells[column.name]);
                           const mappedCell = cell
-                              ? {
+                              ? // {
+                                //     ...cell,
+                                //     data: {
+                                //         ...this.#mapData(cell, column),
+                                //         disabled: !cell.editable,
+                                //         id: column.name,
+                                //         ...cell.data,
+                                //     },
+                                //     slotData: this.#slotData(cell, column),
+                                //     isEditable: true,
+                                // }
+                                {
                                     ...cell,
-                                    data: {
-                                        ...this.#mapData(cell, column),
-                                        disabled: !cell.editable,
-                                        id: column.name,
-                                        ...cell.data,
-                                    },
-                                    slotData: this.#slotData(cell, column),
+                                    data: this.#setProps(cell, column), // Host component props
+                                    slotData: this.#slotData(cell, column), // Subcomponent props
                                     isEditable: true,
                                 }
                               : null;
-                          console.log(
-                              'mapped cell',
-                              column.name,
-                              mappedCell.data
-                          );
+                          console.log('mapped cell', column.name, mappedCell);
                           return { column, cell: mappedCell };
                       });
                   return [...inpuPanelCells, { cells, row }];
@@ -583,6 +584,45 @@ export class KupInputPanel {
         );
 
         this.inputPanelCells = inpuPanelCells;
+    }
+
+    #setProps(cell: KupInputPanelCell, column: KupInputPanelColumn) {
+        const defaultProps = {
+            ...this.#mapData(cell, column),
+            disabled: !cell.editable,
+            id: column.name,
+        };
+        const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
+        const { data, ...noDataProps } = cell.data;
+
+        return cellType !== FCellTypes.MULTI_AUTOCOMPLETE &&
+            cellType !== FCellTypes.MULTI_COMBOBOX
+            ? this.#deepObjectsMerge(defaultProps, {
+                  ...cell.data,
+              })
+            : // Add and ovverride defaultProps except data
+              {
+                  ...defaultProps,
+                  ...noDataProps,
+              };
+    }
+
+    #deepObjectsMerge(target: GenericObject, source: GenericObject) {
+        for (const key in source) {
+            if (
+                source[key] instanceof Object &&
+                !Array.isArray(source[key]) &&
+                key in target
+            ) {
+                target[key] = this.#deepObjectsMerge(
+                    { ...target[key] },
+                    source[key]
+                );
+            } else {
+                target[key] = source[key];
+            }
+        }
+        return target;
     }
 
     #reverseMapCells(): KupInputPanelData {
@@ -697,7 +737,8 @@ export class KupInputPanel {
                 ...this.#CMBandACPAdapter(
                     cell.options,
                     col.title,
-                    cell.value,
+                    // cell.value,
+                    null,
                     cell,
                     col.name
                 ),
@@ -706,6 +747,7 @@ export class KupInputPanel {
                 style: { width: '100%' },
                 disabled: !cell.editable,
                 id: col.name,
+                ...cell.data,
             };
         }
 
