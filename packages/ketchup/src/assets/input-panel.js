@@ -2508,7 +2508,7 @@ const dataAttributeTest = {
                     shape: 'CHK',
                     data: {
                         leadingLabel: true,
-                        label: 'Value',
+                        label: 'Checkbox',
                         checked: true,
                     },
                 },
