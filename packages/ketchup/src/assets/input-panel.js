@@ -1958,89 +1958,72 @@ const dataTableFiltersTest = {
 // Autocomplete
 
 const autocompleteTest = {
-    'kup-text-field': {
-        trailingIcon: true,
-        icon: 'arrow_drop_down',
-    },
-    'kup-list': {
-        showIcons: true,
-        data: [
-            {
-                value: 'Value 1',
-                secondaryText: 'Secondary value 1',
-                id: 'value1',
-                icon: '3d_rotation',
-                selected: true,
-            },
-            {
-                value: 'Value 2',
-                id: 'value2',
-                icon: 'ac_unit',
-                selected: false,
-            },
-            {
-                value: 'Value 3',
-                id: 'value3',
-                icon: 'accessibility',
-                selected: false,
-            },
-            {
-                value: 'Value 4',
-                id: 'value4',
-                icon: 'account_box',
-                separator: true,
-                selected: false,
-            },
-            {
-                value: 'Value 5',
-                id: 'value5',
-                selected: false,
-            },
-        ],
+    options: [
+        {
+            label: 'Value 1',
+
+            id: 'value1',
+        },
+        {
+            label: 'Value 2',
+            id: 'value2',
+        },
+        {
+            label: 'Value 3',
+            id: 'value3',
+        },
+        {
+            label: 'Value 4',
+            id: 'value4',
+        },
+        {
+            label: 'Value 5',
+            id: 'value5',
+        },
+    ],
+    data: {
+        'kup-text-field': {
+            trailingIcon: true,
+            icon: 'arrow_drop_down',
+        },
+        'kup-list': {
+            showIcons: true,
+        },
     },
 };
 
 const comboboxTest = {
-    'text-field': {
-        trailingIcon: true,
-        icon: 'arrow_drop_down',
-    },
-    'kup-list': {
-        showIcons: true,
-        data: [
-            {
-                value: 'Text 1',
-                secondaryText: 'Secondary text 1',
-                id: 'txt1',
-                icon: '3d_rotation',
-                selected: false,
-            },
-            {
-                value: 'Text 2',
-                id: 'txt2',
-                icon: 'ac_unit',
-                selected: false,
-            },
-            {
-                value: 'Text 3',
-                id: 'txt3',
-                icon: 'accessibility',
-                selected: false,
-            },
-            {
-                value: 'Text 4',
-                id: 'txt4',
-                icon: 'account_box',
-                separator: true,
-                selected: true,
-            },
-            {
-                value: 'Text 5',
-                id: 'txt5',
-                selected: false,
-            },
-        ],
-        selectable: true,
+    options: [
+        {
+            label: 'Text 1',
+            id: 'txt1',
+        },
+        {
+            label: 'Text 2',
+            id: 'txt2',
+        },
+        {
+            label: 'Text 3',
+            id: 'txt3',
+        },
+        {
+            label: 'Text 4',
+            id: 'txt4',
+        },
+        {
+            label: 'Text 5',
+            id: 'txt5',
+        },
+    ],
+    data: {
+        'text-field': {
+            trailingIcon: true,
+            icon: 'arrow_drop_down',
+        },
+        'kup-list': {
+            showIcons: false,
+            selectable: true,
+        },
     },
 };
 
@@ -2465,10 +2448,11 @@ const dataAttributeTest = {
                     editable: true,
                     mandatory: true,
                     shape: 'ACP',
+                    options: autocompleteTest.options,
                     data: {
                         showDropDownIcon: false,
                         // Full data
-                        // data: autocompleteTest,
+                        // data: autocompleteTest.data
                         // Check no override default properties
                         data: {
                             'kup-list': {
@@ -2518,9 +2502,10 @@ const dataAttributeTest = {
                     editable: true,
                     mandatory: true,
                     shape: 'CMB',
+                    options: comboboxTest.options,
                     data: {
                         showDropDownIcon: true,
-                        data: comboboxTest,
+                        data: comboboxTest.data,
                     },
                 },
                 EDT: {
@@ -2539,9 +2524,11 @@ const dataAttributeTest = {
                     editable: true,
                     mandatory: true,
                     shape: 'AML',
+                    options: autocompleteTest.options,
                     data: {
                         displayId: false,
-                        data: autocompleteTest,
+                        showDropDownIcon: false,
+                        data: autocompleteTest.data,
                     },
                 },
                 CML: {
@@ -2550,8 +2537,11 @@ const dataAttributeTest = {
                     editable: true,
                     mandatory: true,
                     shape: 'CML',
+                    options: comboboxTest.options,
                     data: {
-                        data: comboboxTest,
+                        displayId: true,
+                        showDropDownIcon: false,
+                        data: comboboxTest.data,
                     },
                 },
                 NMB: {

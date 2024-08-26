@@ -339,9 +339,9 @@ export class KupInputPanel {
         const { fun, ...props } = cell.data;
         return (
             <FButton
-                {...props}
                 icon={cell.icon}
                 id={cellId}
+                {...props}
                 wrapperClass="form__submit"
                 onClick={() => {
                     fun
@@ -540,25 +540,13 @@ export class KupInputPanel {
                       .map((column) => {
                           const cell = structuredClone(row.cells[column.name]);
                           const mappedCell = cell
-                              ? // {
-                                //     ...cell,
-                                //     data: {
-                                //         ...this.#mapData(cell, column),
-                                //         disabled: !cell.editable,
-                                //         id: column.name,
-                                //         ...cell.data,
-                                //     },
-                                //     slotData: this.#slotData(cell, column),
-                                //     isEditable: true,
-                                // }
-                                {
+                              ? {
                                     ...cell,
-                                    data: this.#setProps(cell, column), // Host component props
-                                    slotData: this.#slotData(cell, column), // Subcomponent props
+                                    data: this.#setProps(cell, column),
+                                    slotData: this.#slotData(cell, column),
                                     isEditable: true,
                                 }
                               : null;
-                          console.log('mapped cell', column.name, mappedCell);
                           return { column, cell: mappedCell };
                       });
                   return [...inpuPanelCells, { cells, row }];
@@ -600,7 +588,7 @@ export class KupInputPanel {
             ? this.#deepObjectsMerge(defaultProps, {
                   ...cell.data,
               })
-            : // Add and ovverride defaultProps except data
+            : // Add and ovverride defaultProps of Chip host component except data
               {
                   ...defaultProps,
                   ...noDataProps,
@@ -733,11 +721,10 @@ export class KupInputPanel {
             cellType === FCellTypes.MULTI_AUTOCOMPLETE ||
             cellType === FCellTypes.MULTI_COMBOBOX
         ) {
-            return {
+            const defaultProps = {
                 ...this.#CMBandACPAdapter(
                     cell.options,
                     col.title,
-                    // cell.value,
                     null,
                     cell,
                     col.name
@@ -747,8 +734,11 @@ export class KupInputPanel {
                 style: { width: '100%' },
                 disabled: !cell.editable,
                 id: col.name,
-                ...cell.data,
             };
+
+            return this.#deepObjectsMerge(defaultProps, {
+                ...cell.data,
+            });
         }
 
         return null;
