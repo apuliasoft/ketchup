@@ -769,13 +769,13 @@ export class KupInputPanel {
         return {
             data: {
                 sizeX: '50px',
-                sizeY: '50px',
                 offlineMode: {
                     value: '8;4;5',
                 },
+                id: 'i1012_GREF_0',
+                cellId: 'i1012_GREF_0',
+                sizeY: '50px',
             },
-            cellId: 'i1012_GREF_0',
-            id: 'i1012_GREF_0',
         };
     }
 
