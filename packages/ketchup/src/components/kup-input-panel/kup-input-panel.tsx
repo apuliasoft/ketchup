@@ -623,7 +623,10 @@ export class KupInputPanel {
 
                         if (cellState?.shape === FCellShapes.TABLE) {
                             value = JSON.stringify(
-                                this.#getTableUpdatedCell(cellState.data, key)
+                                this.#getTableUpdatedCell(
+                                    cellState.data.data,
+                                    key
+                                )
                             );
                         }
 
