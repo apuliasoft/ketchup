@@ -602,10 +602,7 @@ export class KupInputPanel {
                 !Array.isArray(source[key]) &&
                 key in target
             ) {
-                target[key] = this.#deepObjectsMerge(
-                    { ...target[key] },
-                    source[key]
-                );
+                target[key] = this.#deepObjectsMerge(target[key], source[key]);
             } else {
                 target[key] = source[key];
             }
@@ -721,7 +718,7 @@ export class KupInputPanel {
             cellType === FCellTypes.MULTI_AUTOCOMPLETE ||
             cellType === FCellTypes.MULTI_COMBOBOX
         ) {
-            const defaultProps = {
+            return {
                 ...this.#CMBandACPAdapter(
                     cell.options,
                     col.title,
@@ -735,10 +732,6 @@ export class KupInputPanel {
                 disabled: !cell.editable,
                 id: col.name,
             };
-
-            return this.#deepObjectsMerge(defaultProps, {
-                ...cell.data,
-            });
         }
 
         return null;
