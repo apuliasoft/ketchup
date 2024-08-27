@@ -581,7 +581,7 @@ export class KupInputPanel {
             id: column.name,
         };
         const cellType = dom.ketchup.data.cell.getType(cell, cell.shape);
-        const { data, ...noDataProps } = cell.data;
+        const { data, ...noDataProps } = cell.data || {};
 
         return cellType !== FCellTypes.MULTI_AUTOCOMPLETE &&
             cellType !== FCellTypes.MULTI_COMBOBOX
