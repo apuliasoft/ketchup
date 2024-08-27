@@ -1,5 +1,4 @@
 // Tables
-
 const datatable = {
     type: 'SmeupDataTable',
     columns: [
@@ -1098,6 +1097,7 @@ const dataTableFiltersTest = {
             name: 'FLD1',
             title: 'Column A',
             size: '',
+            isEditable: true,
         },
         {
             name: 'FLD2',
@@ -1137,6 +1137,7 @@ const dataTableFiltersTest = {
                     },
                 },
             ],
+            isEditable: true,
         },
         {
             name: 'FLD3',
@@ -1147,6 +1148,7 @@ const dataTableFiltersTest = {
                 p: '',
                 k: '',
             },
+            isEditable: true,
         },
         {
             name: 'FLD4',
@@ -1159,6 +1161,7 @@ const dataTableFiltersTest = {
             },
             icon: 'calendar',
             isKey: true,
+            isEditable: true,
         },
         {
             name: 'FLD5',
@@ -1185,7 +1188,6 @@ const dataTableFiltersTest = {
                         icon: 'warning',
                         message: 'Warning message, thread carefully!',
                     },
-                    isEditable: true,
                     value: 'CASFRA',
                     data: {},
                     element: {
@@ -1198,7 +1200,6 @@ const dataTableFiltersTest = {
                         p: '',
                         k: '10',
                     },
-                    isEditable: true,
                     value: '10',
                     data: {},
                     displayedValue: '10',
@@ -1212,7 +1213,6 @@ const dataTableFiltersTest = {
                         p: '',
                         k: '100000.60',
                     },
-                    isEditable: true,
                     value: '100,000.60',
                     info: {
                         message: 'Info message, hello!',
@@ -1229,7 +1229,6 @@ const dataTableFiltersTest = {
                         p: '*YYMD',
                         k: '20181101',
                     },
-                    isEditable: true,
                     value: '2018-11-01',
                     info: {
                         color: 'var(--kup-danger-color)',
@@ -2021,7 +2020,7 @@ const comboboxTest = {
             icon: 'arrow_drop_down',
         },
         'kup-list': {
-            showIcons: false,
+            showIcons: true,
             selectable: true,
         },
     },
@@ -2049,11 +2048,6 @@ const data = {
             title: 'Field2',
             visible: true,
             isEditable: false,
-        },
-        {
-            name: 'DATA',
-            title: '',
-            visible: true,
         },
         { editable: false, name: 'BTN1', visible: true, isEditable: false },
         { editable: false, name: 'BTN2', visible: true, isEditable: false },
@@ -2095,12 +2089,6 @@ const data = {
                     editable: true,
                     mandatory: true,
                 },
-                DATA: {
-                    // value: datatable,
-                    shape: 'TBL',
-                    editable: true,
-                    mandatory: true,
-                },
                 NAT: {
                     value: 'ITA',
                     fun: 'combo',
@@ -2118,74 +2106,22 @@ const data = {
                 type: 'SmeupDataLayout',
                 horizontal: false,
                 sections: [
-                    // {
-                    //     content: [
-                    //         {
-                    //             id: 'NAM',
-                    //         },
-                    //         {
-                    //             options: [],
-                    //             editable: false,
-                    //             mandatory: false,
-                    //             id: 'INP1',
-                    //         },
-                    //         {
-                    //             options: [],
-                    //             editable: false,
-                    //             mandatory: false,
-                    //             id: 'INP2',
-                    //         },
-                    //     ],
-                    //     sections: [],
-                    //     horizontal: false,
-                    //     gridCols: 4,
-                    //     gridRows: 2,
-                    //     gap: 2,
-                    //     title: 'Anagrafica',
-                    // },
-                    // {
-                    //     content: [{id: 'NAT',colSpan: 1, rowSpan: 1,}],
-                    //     gridCols: 1,
-                    //     gridRows:1
-                    // },
-                    {
-                        content: [
-                            {
-                                id: 'DATA',
-                                colSpan: 1,
-                                rowSpan: 1,
-                            },
-                        ],
-                        horizontal: false,
-                        gridCols: 1,
-                        gridRows: 1,
-                        title: 'Table',
-                    },
                     {
                         content: [
                             {
                                 options: [],
                                 editable: false,
                                 mandatory: false,
-                                id: 'BTN1',
+                                id: 'NAM',
                                 colSpan: 1,
                                 rowSpan: 1,
                             },
-                            // {
-                            //     options: [],
-                            //     editable: false,
-                            //     mandatory: false,
-                            //     id: 'BTN2',
-                            //     colSpan: 1,
-                            //     rowSpan: 1,
-                            // },
                         ],
                         sections: [],
                         horizontal: false,
                         gridCols: 4,
                         gridRows: 2,
                         gap: 2,
-                        title: 'Actions',
                     },
                 ],
             },
@@ -2450,9 +2386,8 @@ const dataAttributeTest = {
                     shape: 'ACP',
                     options: autocompleteTest.options,
                     data: {
-                        showDropDownIcon: false,
                         // Full data
-                        // data: autocompleteTest.data
+                        // data: autocompleteTest,
                         // Check no override default properties
                         data: {
                             'kup-list': {
@@ -2464,7 +2399,6 @@ const dataAttributeTest = {
                 BTN: {
                     value: 'Avanti',
                     obj: { t: '', p: '' },
-                    options: [],
                     editable: true,
                     mandatory: true,
                     shape: 'BTN',
@@ -2527,7 +2461,6 @@ const dataAttributeTest = {
                     options: autocompleteTest.options,
                     data: {
                         displayId: false,
-                        showDropDownIcon: false,
                         data: autocompleteTest.data,
                     },
                 },
