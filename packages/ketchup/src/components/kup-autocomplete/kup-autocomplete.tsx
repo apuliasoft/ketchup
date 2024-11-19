@@ -15,7 +15,6 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../managers/kup-manager/kup-manager';
-import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import {
     GenericObject,
@@ -33,12 +32,12 @@ import {
     ValueDisplayedValue,
 } from '../kup-list/kup-list-declarations';
 import { consistencyCheck } from '../kup-list/kup-list-helper';
-import { KupThemeIconValues } from '../../managers/kup-theme/kup-theme-declarations';
 import { getProps, setProps } from '../../utils/utils';
 import { componentWrapperId } from '../../variables/GenericVariables';
 import { KupManagerClickCb } from '../../managers/kup-manager/kup-manager-declarations';
 import { KupDynamicPositionPlacement } from '../../managers/kup-dynamic-position/kup-dynamic-position-declarations';
-import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
+import { FAutocompleteProps } from '../../f-components/f-autocomplete/f-autocomplete-declarations';
+import { FAutocomplete } from '../../f-components/f-autocomplete/f-autocomplete';
 
 @Component({
     tag: 'kup-autocomplete',
@@ -574,33 +573,60 @@ export class KupAutocomplete {
     }
 
     render() {
-        const props: FTextFieldProps = {
-            alert: this.alert,
-            danger: this.rootElement.classList.contains('kup-danger')
-                ? true
-                : false,
-            disabled: this.disabled,
-            error: this.error,
-            icon: this.icon,
-            info: this.rootElement.classList.contains('kup-info')
-                ? true
-                : false,
-            isClearable: this.isClearable,
-            label: this.label,
-            leadingLabel: this.leadingLabel,
-            readOnly: this.readOnly,
-            sizing: this.sizing,
-            success: this.rootElement.classList.contains('kup-success')
-                ? true
-                : false,
-            value: this.value,
-            warning: this.rootElement.classList.contains('kup-warning')
-                ? true
-                : false,
-        };
         const fullHeight =
             this.rootElement.classList.contains('kup-full-height');
         const fullWidth = this.rootElement.classList.contains('kup-full-width');
+
+        const fAutocompleteProps: FAutocompleteProps = {
+            displayedValue: this.displayedValue,
+            value: this.value,
+            alert: this.alert,
+            allowIncosistentValues: this.allowInconsistentValues,
+            customStyle: this.customStyle,
+            data: this.data,
+            disabled: this.disabled,
+            displayMode: this.displayMode,
+            error: this.error,
+            icon: this.icon,
+            initialValue: this.initialValue,
+            isClearable: this.isClearable,
+            inputDelay: this.inputDelay,
+            label: this.label,
+            leadingLabel: this.leadingLabel,
+            minimumChars: this.minimumChars,
+            readOnly: this.readOnly,
+            selectMode: this.selectMode,
+            serverHandledFilter: this.serverHandledFilter,
+            showDropDownIcon: this.showDropDownIcon,
+            sizing: this.sizing,
+            trailingIcon: this.trailingIcon,
+            onKupBlur: () => {
+                this.onKupBlur();
+            },
+            onKupClick: () => {
+                this.onKupClick();
+            },
+            onKupChange: (e: UIEvent & { target: HTMLInputElement }) => {
+                this.onKupChange(e.target.value);
+            },
+            onKupFocus: () => {
+                this.onKupFocus();
+            },
+            onKupInput: () => {
+                this.onKupInput();
+            },
+            onKupIconClick: () => {
+                this.onKupIconClick();
+            },
+            onKupItemClick: (e: CustomEvent<KupListEventPayload>) => {
+                this.onKupItemClick(e);
+            },
+            inputTimeout: this.#inputTimeout,
+            textfieldEl: this.#textfieldEl,
+            fullHeight,
+            fullWidth,
+            listEl: this.#listEl,
+        };
 
         return (
             <Host
@@ -615,34 +641,7 @@ export class KupAutocomplete {
                     )}
                 </style>
                 <div id={componentWrapperId} style={this.#elStyle}>
-                    <FTextField
-                        {...props}
-                        icon={
-                            this.showDropDownIcon
-                                ? KupThemeIconValues.DROPDOWN
-                                : null
-                        }
-                        trailingIcon={true}
-                        {...this.data['kup-text-field']}
-                        disabled={this.disabled}
-                        fullHeight={fullHeight}
-                        fullWidth={fullWidth}
-                        value={this.displayedValue}
-                        onBlur={() => this.onKupBlur()}
-                        onClick={() => this.onKupClick()}
-                        onChange={(e: UIEvent & { target: HTMLInputElement }) =>
-                            this.onKupChange(e.target.value)
-                        }
-                        onFocus={() => this.onKupFocus()}
-                        onInput={() => {
-                            window.clearTimeout(this.#inputTimeout);
-                            this.#inputTimeout = window.setTimeout(
-                                () => this.onKupInput(),
-                                this.inputDelay
-                            );
-                        }}
-                        onIconClick={() => this.onKupIconClick()}
-                    ></FTextField>
+                    <FAutocomplete {...fAutocompleteProps}></FAutocomplete>
                 </div>
                 {this.#prepList()}
             </Host>
