@@ -23,7 +23,6 @@ export const FAutocomplete: FunctionalComponent<FAutocompleteProps> = (
             }
             onFocus={props.onKupFocus}
             onInput={() => {
-                console.log('oninput');
                 window.clearTimeout(props.inputTimeout);
                 props.inputTimeout = window.setTimeout(
                     () => props.onKupInput(),
