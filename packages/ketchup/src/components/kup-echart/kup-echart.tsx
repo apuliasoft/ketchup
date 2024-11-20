@@ -572,7 +572,7 @@ export class KupEchart {
     #sankeyChart() {
         const links: GenericObject[] = [],
             x = this.#createX(),
-            y = this.#createY(),
+            y = this.#createYForSankey(),
             // do not use Object.keys(y) because it does not preserve order and it's important to establish tuple <SOURCE, TARGET, WEIGHT> of Sankey!
             yKeys = [
                 this.data.columns[0].title,
@@ -840,6 +840,27 @@ export class KupEchart {
                 }
             }
         }
+        return y;
+    }
+
+    #createYForSankey() {
+        const y = {};
+
+        for (const row of this.data.rows) {
+            for (const key of Object.keys(row.cells)) {
+                const cell = row.cells[key];
+                const value = cell.value;
+                const column = getColumnByName(this.data.columns, key);
+                if (column) {
+                    const title = column.title;
+                    if (!y[title]) {
+                        y[title] = [];
+                    }
+                    y[title].push(value);
+                }
+            }
+        }
+
         return y;
     }
 
