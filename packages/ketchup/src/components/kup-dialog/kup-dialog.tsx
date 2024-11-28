@@ -77,6 +77,11 @@ export class KupDialog {
      * @default "auto"
      */
     @Prop() sizeY = 'auto';
+    /**
+     * Set the dialog in fullscreen mode.
+     * @default "false"
+     */
+    @Prop() fullScreen: boolean = false;
 
     /*-------------------------------------------------*/
     /*       I n t e r n a l   V a r i a b l e s       */
@@ -157,8 +162,8 @@ export class KupDialog {
             }
         }
         this.#recalcSafeguard = 0;
-        const left = window.innerWidth / 2 - rect.width / 2;
-        const top = window.innerHeight / 2 - rect.height / 2 + window.scrollY;
+        const left =this.fullScreen? 0 : (window.innerWidth / 2 - rect.width / 2);
+        const top = this.fullScreen? 0 : (window.innerHeight / 2 - rect.height / 2 + window.scrollY);
         this.rootElement.style.setProperty('--kup_dialog_left', left + 'px');
         this.rootElement.style.setProperty('--kup_dialog_top', top + 'px');
         this.rootElement.removeAttribute('fade-in');
@@ -224,11 +229,18 @@ export class KupDialog {
     }
 
     render() {
-        const style = {
-            '--kup_dialog_height': this.sizeY ? this.sizeY : 'auto',
-            '--kup_dialog_width': this.sizeX ? this.sizeX : 'auto',
-        };
-
+        let style;
+        if (this.fullScreen) {
+            style = {
+                '--kup_dialog_height': '100dvh',
+                '--kup_dialog_width': '100dvw',
+            };
+        } else {
+            style = {
+                '--kup_dialog_height': this.sizeY ?? 'auto',
+                '--kup_dialog_width': this.sizeX ?? 'auto',
+            };
+        }
         const headerSlot = this.rootElement.querySelector('[slot="header"]');
         if (headerSlot) {
             this.#header = headerSlot as HTMLElement;
