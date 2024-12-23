@@ -469,7 +469,11 @@ const formatValue = (
     inputIsLocalized: boolean,
     browserLocale: string
 ): string => {
-    const formatedValue = value;
+    let formatedValue = dom.ketchup.math.format(
+        value,
+        dom.ketchup.math.createFormatPattern(options.group, options.decimal),
+        inputIsLocalized
+    );
     if (!formatedValue) {
         return formatedValue;
     }
@@ -477,16 +481,12 @@ const formatValue = (
     if (formatedValue == '-') {
         return '';
     }
-    const localeString = Number(
-        dom.ketchup.math.format(
-            formatedValue,
-            dom.ketchup.math.createFormatPattern(
-                options.group,
-                options.decimal
-            ),
-            inputIsLocalized
-        )
-    ).toLocaleString(browserLocale, {
+
+    if (browserLocale === 'it') {
+        formatedValue = formatedValue.replace(/\./g, '').replace(',', '.');
+    }
+
+    const localeString = Number(formatedValue).toLocaleString(browserLocale, {
         minimumFractionDigits: options.decimal,
     });
 
