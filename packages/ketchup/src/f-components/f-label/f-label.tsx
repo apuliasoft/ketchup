@@ -5,7 +5,7 @@ import { getGCellStyle } from '../../utils/g-cell-style-generator';
 
 function getVNodes(parsedElements: ParsedElement[]): VNode[] {
     return parsedElements.map((e) => {
-        const style = getGCellStyle(e.tag?.replace(/[_G]/g, ''));
+        const style = getGCellStyle(e.tag?.replace(/[_]/g, '').slice(1));
         return e.closed ? (
             <span style={style}>{e.content}</span>
         ) : (
@@ -14,12 +14,12 @@ function getVNodes(parsedElements: ParsedElement[]): VNode[] {
     });
 }
 
-export const FLabel: FunctionalComponent<FLabelProps> = ({ text }) => {
+export const FLabel: FunctionalComponent<FLabelProps> = ({ text, classes }) => {
     const parsedElements = getParsedElements(text);
     // To avoid creating unnecessary span in the text
     // when there are no tags to format the content
     if (parsedElements?.length > 1) {
-        return <span>{getVNodes(parsedElements)}</span>;
+        return <span class={classes}>{getVNodes(parsedElements)}</span>;
     } else {
         return <Fragment>{text}</Fragment>;
     }
