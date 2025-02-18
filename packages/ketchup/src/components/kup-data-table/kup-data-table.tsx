@@ -980,7 +980,6 @@ export class KupDataTable {
     @Watch('fixedRows')
     controlFixedRowsColumns() {
         let warnMessage = '';
-
         if (isNaN(this.fixedColumns) || this.fixedColumns < 0) {
             warnMessage += `The value ${this.fixedColumns} set on fixedColumns property is not valid.`;
         }
@@ -6748,7 +6747,6 @@ export class KupDataTable {
             elStyle = {
                 ...elStyle,
                 maxHeight: this.tableHeight,
-                overflow: 'auto',
             };
         }
 
